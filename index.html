@@ -187,9 +187,33 @@
             }
         };
 
+        // Password for adult content
+        const ADULT_PASSWORD = '!gringo2026!'; // Change this to whatever password you want
+
         // Adult content consent handling
         function checkAdultConsent() {
             return localStorage.getItem('adultConsent') === 'true';
+        }
+
+        function checkAdultPassword() {
+            return localStorage.getItem('adultPassword') === 'true';
+        }
+
+        function showPasswordPrompt() {
+            const password = prompt('🔒 This section is password protected.\n\nEnter password to continue:');
+            
+            if (password === null) {
+                // User clicked cancel
+                return;
+            }
+            
+            if (password === ADULT_PASSWORD) {
+                localStorage.setItem('adultPassword', 'true');
+                // Password correct, now show age verification
+                showAdultModal();
+            } else {
+                alert('❌ Incorrect password');
+            }
         }
 
         function showAdultModal() {
@@ -327,10 +351,18 @@
 
         // Select category and show block selection
         function selectCategory(categoryKey) {
-            // Check if adult-rated and no consent given
-            if (categoryKey === 'adult-rated' && !checkAdultConsent()) {
-                showAdultModal();
-                return;
+            // Check if adult-rated and protections not passed
+            if (categoryKey === 'adult-rated') {
+                // First check password
+                if (!checkAdultPassword()) {
+                    showPasswordPrompt();
+                    return;
+                }
+                // Then check age consent
+                if (!checkAdultConsent()) {
+                    showAdultModal();
+                    return;
+                }
             }
             
             selectCategoryDirect(categoryKey);
