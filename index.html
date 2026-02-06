@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>awkwardgringo - Learn Spanish to Impress</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+        }
+        .category-card {
+            transition: transform 0.2s;
+        }
+        .category-card:hover {
+            transform: scale(1.05);
+        }
+        .category-card:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-gray-900 to-gray-800 min-h-screen text-white">
+
+    <!-- Main Container -->
+    <div id="app"></div>
+
+    <!-- PapaParse for CSV parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    
+    <script>
+        // Global state
+        let allPhrases = [];
+        let currentCategory = null;
+        let currentBlock = 1;
+        let currentPhraseIndex = 0;
+        let categoryPhrases = [];
+
+        // Category configurations
+        const categories = {
+            'first-date': {
+                name: 'First Date',
+                icon: '❤️',
+                color: 'bg-pink-500'
+            },
+            'compliments': {
+                name: 'Compliments',
+                icon: '💬',
+                color: 'bg-purple-500'
+            },
+            'food-drinks': {
+                name: 'Food & Drinks',
+                icon: '🍽️',
+                color: 'bg-orange-500'
+            },
+            'meeting-family': {
+                name: 'Meeting Family',
+                icon: '👨‍👩‍👧‍👦',
+                color: 'bg-blue-500'
+            },
+            'spicy': {
+                name: 'Spicy 🌶️',
+                icon: '🔥',
+                color: 'bg-red-500'
+            },
+            'adult-rated': {
+                name: 'Adult Rated 🔞',
+                icon: '💋',
+                color: 'bg-pink-600'
+            },
+            'basics': {
+                name: 'Learn Basics',
+                icon: '📚',
+                color: 'bg-green-500'
+            }
+        };
+
+        // Load CSV data
+        async function loadPhrases() {
+            try {
+                const response = await fetch('awkwardgringo_-_directory.csv');
+                const csvText = await response.text();
+                
+                Papa.parse(csvText, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        allPhrases = results.data;
+                        console.log(`Loaded ${allPhrases.length} phrases`);
+                        renderHome();
+                    },
+                    error: function(error) {
+                        console.error('Error parsing CSV:', error);
+                        document.getElementById('app').innerHTML = `
+                            <div class="p-6 text-center">
+                                <h2 class="text-2xl font-bold text-red-500 mb-4">Error Loading Phrases</h2>
+                                <p class="text-gray-300">Make sure 'awkwardgringo_-_directory.csv' is in the same folder as this HTML file.</p>
+                            </div>
+                        `;
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+                document.getElementById('app').innerHTML = `
+                    <div class="p-6 text-center">
+                        <h2 class="text-2xl font-bold text-red-500 mb-4">Error Loading File</h2>
+                        <p class="text-gray-300">Could not load phrases. Make sure the CSV file exists.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Render home screen
+        function renderHome() {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <!-- Header -->
+                <div class="bg-gradient-to-r from-yellow-500 to-orange-500 p-8 text-center">
+                    <h1 class="text-5xl font-black text-gray-900 mb-2" style="letter-spacing: -0.02em;">awkwardgringo</h1>
+                    <p class="text-gray-800 text-xl font-semibold">Learn Spanish to impress 💃</p>
+                </div>
+
+                <!-- Hero Section -->
+                <div class="p-6 max-w-md mx-auto">
+                    <div class="bg-gradient-to-br from-pink-600 to-purple-600 rounded-2xl p-8 mb-8 text-center shadow-xl">
+                        <h2 class="text-3xl font-black mb-3" style="letter-spacing: -0.01em;">Stop Being Awkward</h2>
+                        <p class="text-gray-100 mb-4 font-medium text-lg">
+                            Master the phrases that actually matter when dating Latinas
+                        </p>
+                        <div class="bg-white/20 backdrop-blur rounded-lg p-4">
+                            <p class="text-sm text-gray-100">
+                                💡 Real scenarios, authentic phrases, zero cringe
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Categories -->
+                    <h3 class="text-2xl font-black mb-4 text-gray-100" style="letter-spacing: -0.01em;">Choose Your Scenario</h3>
+                    
+                    <div class="space-y-3">
+                        ${Object.keys(categories).map(catKey => {
+                            const cat = categories[catKey];
+                            return `
+                                <button onclick="selectCategory('${catKey}')" 
+                                        class="category-card w-full ${cat.color} rounded-xl p-5 flex items-center justify-between shadow-lg">
+                                    <div class="flex items-center gap-4">
+                                        <div class="bg-white/20 p-3 rounded-lg">
+                                            <span class="text-2xl">${cat.icon}</span>
+                                        </div>
+                                        <span class="font-semibold text-lg">${cat.name}</span>
+                                    </div>
+                                    <span class="text-2xl">›</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+
+                    <!-- Footer CTA -->
+                    <div class="mt-12 bg-gray-800 rounded-xl p-6 text-center">
+                        <p class="text-gray-400 mb-3">Ready to level up your game?</p>
+                        <p class="text-2xl mb-4">🔥 100% Free to Use 🔥</p>
+                        <p class="text-sm text-gray-500">
+                            No sign-up required. Just start learning.
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Select category and show block selection
+        function selectCategory(categoryKey) {
+            currentCategory = categoryKey;
+            const phrases = allPhrases.filter(p => p.category === categoryKey);
+            
+            // Get unique blocks
+            const blocks = [...new Set(phrases.map(p => parseInt(p.block)))].sort();
+            
+            const cat = categories[categoryKey];
+            const app = document.getElementById('app');
+            
+            app.innerHTML = `
+                <div class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+                    <div class="p-6">
+                        <button onclick="renderHome()" class="text-gray-400 mb-6 flex items-center gap-2">
+                            <span>←</span> Back
+                        </button>
+                        
+                        <div class="max-w-md mx-auto">
+                            <div class="flex items-center gap-4 mb-8">
+                                <span class="text-5xl">${cat.icon}</span>
+                                <h2 class="text-3xl font-black" style="letter-spacing: -0.01em;">${cat.name}</h2>
+                            </div>
+                            
+                            <p class="text-gray-300 mb-6">Choose a block to start learning (10 phrases per block):</p>
+                            
+                            <div class="space-y-3">
+                                ${blocks.map(blockNum => `
+                                    <button onclick="startLearning('${categoryKey}', ${blockNum})" 
+                                            class="w-full ${cat.color} rounded-xl p-5 flex items-center justify-between shadow-lg category-card">
+                                        <div class="flex items-center gap-4">
+                                            <div class="bg-white/20 p-3 rounded-lg font-bold text-xl">
+                                                ${blockNum}
+                                            </div>
+                                            <span class="font-semibold text-lg">Block ${blockNum}</span>
+                                        </div>
+                                        <span class="text-2xl">›</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Start learning with selected block
+        function startLearning(categoryKey, blockNum) {
+            currentCategory = categoryKey;
+            currentBlock = blockNum;
+            currentPhraseIndex = 0;
+            
+            // Get phrases for this category and block
+            categoryPhrases = allPhrases.filter(p => 
+                p.category === categoryKey && parseInt(p.block) === blockNum
+            );
+            
+            if (categoryPhrases.length === 0) {
+                alert('No phrases found for this block!');
+                return;
+            }
+            
+            renderLearning();
+        }
+
+        // Render learning screen
+        function renderLearning() {
+            if (currentPhraseIndex >= categoryPhrases.length) {
+                // Completed this block
+                renderBlockComplete();
+                return;
+            }
+            
+            const phrase = categoryPhrases[currentPhraseIndex];
+            const cat = categories[currentCategory];
+            const app = document.getElementById('app');
+            
+            app.innerHTML = `
+                <div class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-6">
+                    <button onclick="selectCategory('${currentCategory}')" class="text-gray-400 mb-6 flex items-center gap-2">
+                        <span>←</span> Back to Blocks
+                    </button>
+                    
+                    <div class="max-w-md mx-auto">
+                        <h2 class="text-3xl font-black mb-8 text-center" style="letter-spacing: -0.01em;">
+                            ${cat.name} - Block ${currentBlock}
+                        </h2>
+                        
+                        <div class="bg-gray-800 rounded-2xl p-8 mb-6 shadow-xl">
+                            <div class="text-center mb-6">
+                                <p class="text-gray-400 text-sm mb-2">English</p>
+                                <p class="text-xl mb-6">${phrase.english}</p>
+                                
+                                <p class="text-gray-400 text-sm mb-2">Spanish</p>
+                                <p class="text-3xl font-bold text-yellow-400 mb-6">${phrase.spanish}</p>
+                                
+                                <button onclick="playAudio('${phrase.spanish}')" 
+                                        class="bg-yellow-500 text-gray-900 px-6 py-3 rounded-full font-semibold flex items-center gap-2 mx-auto hover:bg-yellow-400 transition">
+                                    <span>🔊</span>
+                                    Play Audio
+                                </button>
+                            </div>
+                            
+                            <div class="border-t border-gray-700 pt-6">
+                                <p class="text-gray-400 text-sm mb-2">Pronunciation</p>
+                                <p class="text-lg text-gray-300 italic">${phrase.pronunciation}</p>
+                                ${phrase.notes ? `
+                                    <div class="mt-4">
+                                        <p class="text-gray-400 text-sm mb-2">Note</p>
+                                        <p class="text-sm text-yellow-300">${phrase.notes}</p>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between gap-4 mb-4">
+                            <button onclick="previousPhrase()" 
+                                    ${currentPhraseIndex === 0 ? 'disabled' : ''}
+                                    class="flex-1 bg-gray-700 px-6 py-3 rounded-full font-semibold disabled:opacity-30 hover:bg-gray-600 transition">
+                                Previous
+                            </button>
+                            <button onclick="nextPhrase()" 
+                                    class="flex-1 bg-yellow-500 text-gray-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-400 transition">
+                                ${currentPhraseIndex === categoryPhrases.length - 1 ? 'Finish' : 'Next'}
+                            </button>
+                        </div>
+                        
+                        <p class="text-center text-gray-500 mt-4">
+                            ${currentPhraseIndex + 1} of ${categoryPhrases.length}
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Block complete screen
+        function renderBlockComplete() {
+            const cat = categories[currentCategory];
+            const app = document.getElementById('app');
+            
+            app.innerHTML = `
+                <div class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-6 flex items-center justify-center">
+                    <div class="max-w-md mx-auto text-center">
+                        <div class="text-6xl mb-6">🎉</div>
+                        <h2 class="text-4xl font-black mb-4">Block Complete!</h2>
+                        <p class="text-xl text-gray-300 mb-8">
+                            You finished Block ${currentBlock} of ${cat.name}
+                        </p>
+                        
+                        <div class="space-y-3">
+                            <button onclick="selectCategory('${currentCategory}')" 
+                                    class="w-full bg-yellow-500 text-gray-900 px-6 py-4 rounded-xl font-semibold text-lg hover:bg-yellow-400 transition">
+                                Choose Another Block
+                            </button>
+                            <button onclick="renderHome()" 
+                                    class="w-full bg-gray-700 px-6 py-4 rounded-xl font-semibold text-lg hover:bg-gray-600 transition">
+                                Back to Categories
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Navigation functions
+        function nextPhrase() {
+            currentPhraseIndex++;
+            renderLearning();
+        }
+
+        function previousPhrase() {
+            if (currentPhraseIndex > 0) {
+                currentPhraseIndex--;
+                renderLearning();
+            }
+        }
+
+        // Text-to-speech for Spanish
+        function playAudio(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'es-ES'; // Spanish
+                utterance.rate = 0.8; // Slightly slower for learning
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('Text-to-speech not supported in your browser');
+            }
+        }
+
+        // Initialize app
+        window.onload = function() {
+            loadPhrases();
+        };
+    </script>
+</body>
+</html>
