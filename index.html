@@ -78,7 +78,7 @@
         // Load CSV data
         async function loadPhrases() {
             try {
-                const response = await fetch('awkwardgringo_-_directory.csv');
+                const response = await fetch('awkwardgringo - directory.csv');
                 const csvText = await response.text();
                 
                 Papa.parse(csvText, {
@@ -94,7 +94,7 @@
                         document.getElementById('app').innerHTML = `
                             <div class="p-6 text-center">
                                 <h2 class="text-2xl font-bold text-red-500 mb-4">Error Loading Phrases</h2>
-                                <p class="text-gray-300">Make sure 'awkwardgringo_-_directory.csv' is in the same folder as this HTML file.</p>
+                                <p class="text-gray-300">Make sure 'awkwardgringo - directory.csv' is in the same folder as this HTML file.</p>
                             </div>
                         `;
                     }
