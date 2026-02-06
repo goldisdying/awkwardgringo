@@ -134,6 +134,59 @@
             }
         };
 
+        // Block titles for each category
+        const blockTitles = {
+            'first-date': {
+                1: 'Opening Lines & First Impressions',
+                2: 'Building Connection',
+                3: 'Getting Deeper',
+                4: 'Moving Things Forward',
+                5: 'Sealing the Deal'
+            },
+            'compliments': {
+                1: 'First Impressions',
+                2: 'Inner Beauty',
+                3: 'Physical Attraction',
+                4: 'Style & Appearance',
+                5: 'Radiant Presence'
+            },
+            'food-drinks': {
+                1: 'Ordering Basics',
+                2: 'Menu Navigation',
+                3: 'Preferences & Requests',
+                4: 'Compliments & Feedback',
+                5: 'Dining Together'
+            },
+            'meeting-family': {
+                1: 'First Introductions',
+                2: 'Making Good Impressions',
+                3: 'Family Conversation',
+                4: 'Showing Respect',
+                5: 'Building Relationships'
+            },
+            'spicy': {
+                1: 'Flirty Hints',
+                2: 'Building Tension',
+                3: 'Getting Bold',
+                4: 'Making Moves',
+                5: 'Closing Time'
+            },
+            'adult-rated': {
+                1: 'Setting the Mood',
+                2: 'Direct Communication',
+                3: 'In the Moment',
+                4: 'Advanced Moves',
+                5: 'Power Plays'
+            },
+            'basics': {
+                1: 'Essential Greetings',
+                2: 'Common Phrases',
+                3: 'Daily Basics',
+                4: 'Expressing Needs',
+                5: 'Feelings & Time'
+            }
+        };
+
         // Adult content consent handling
         function checkAdultConsent() {
             return localStorage.getItem('adultConsent') === 'true';
@@ -310,18 +363,23 @@
                             <p class="text-gray-300 mb-6">Choose a block to start learning (10 phrases per block):</p>
                             
                             <div class="space-y-3">
-                                ${blocks.map(blockNum => `
+                                ${blocks.map(blockNum => {
+                                    const blockTitle = blockTitles[categoryKey][blockNum] || '';
+                                    return `
                                     <button onclick="startLearning('${categoryKey}', ${blockNum})" 
                                             class="w-full ${cat.color} rounded-xl p-5 flex items-center justify-between shadow-lg category-card">
-                                        <div class="flex items-center gap-4">
+                                        <div class="flex items-center gap-4 flex-1">
                                             <div class="bg-white/20 p-3 rounded-lg font-bold text-xl">
                                                 ${blockNum}
                                             </div>
-                                            <span class="font-semibold text-lg">Block ${blockNum}</span>
+                                            <div class="text-left">
+                                                <div class="font-semibold text-lg">Block ${blockNum}</div>
+                                                <div class="text-sm text-white/80">${blockTitle}</div>
+                                            </div>
                                         </div>
                                         <span class="text-2xl">›</span>
                                     </button>
-                                `).join('')}
+                                `}).join('')}
                             </div>
                         </div>
                     </div>
@@ -367,9 +425,14 @@
                     </button>
                     
                     <div class="max-w-md mx-auto">
-                        <h2 class="text-3xl font-black mb-8 text-center" style="letter-spacing: -0.01em;">
-                            ${cat.name} - Block ${currentBlock}
-                        </h2>
+                        <div class="text-center mb-8">
+                            <h2 class="text-3xl font-black mb-2" style="letter-spacing: -0.01em;">
+                                ${cat.name} - Block ${currentBlock}
+                            </h2>
+                            <p class="text-yellow-400 text-lg font-semibold">
+                                ${blockTitles[currentCategory][currentBlock]}
+                            </p>
+                        </div>
                         
                         <div class="bg-gray-800 rounded-2xl p-8 mb-6 shadow-xl">
                             <div class="text-center mb-6">
