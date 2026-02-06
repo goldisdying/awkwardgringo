@@ -360,13 +360,6 @@
             const cat = categories[currentCategory];
             const app = document.getElementById('app');
             
-            // Calculate global index for this phrase (for audio filename)
-            const globalIndex = allPhrases.findIndex(p => 
-                p.category === phrase.category && 
-                p.block === phrase.block && 
-                p.spanish === phrase.spanish
-            ) + 1;
-            
             app.innerHTML = `
                 <div class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-6">
                     <button onclick="selectCategory('${currentCategory}')" class="text-gray-400 mb-6 flex items-center gap-2">
@@ -386,7 +379,7 @@
                                 <p class="text-gray-400 text-sm mb-2">Spanish</p>
                                 <p class="text-3xl font-bold text-yellow-400 mb-6">${phrase.spanish}</p>
                                 
-                                <button onclick="playAudio('${phrase.spanish}')" 
+                                <button onclick="playAudio()" 
                                         class="bg-yellow-500 text-gray-900 px-6 py-3 rounded-full font-semibold flex items-center gap-2 mx-auto hover:bg-yellow-400 transition">
                                     <span>🔊</span>
                                     Play Audio
@@ -467,16 +460,19 @@
             }
         }
 
-        // Text-to-speech for Spanish
-        function playAudio(text) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'es-ES'; // Spanish
-                utterance.rate = 0.8; // Slightly slower for learning
-                speechSynthesis.speak(utterance);
-            } else {
-                alert('Text-to-speech not supported in your browser');
-            }
+        // Play audio from MP3 files
+        function playAudio() {
+            // Calculate the audio filename based on current position
+            const phraseIndex = currentPhraseIndex + 1; // Convert to 1-based
+            const filename = `${currentCategory}-${currentBlock}-${phraseIndex}.mp3`;
+            const audioPath = `audio/${filename}`;
+            
+            // Create and play audio element
+            const audio = new Audio(audioPath);
+            audio.play().catch(error => {
+                console.error('Error playing audio:', error);
+                alert('Could not play audio file. Make sure the audio files are uploaded to GitHub.');
+            });
         }
 
         // Initialize app
