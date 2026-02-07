@@ -188,7 +188,7 @@
         };
 
         // Password for adult content
-        const ADULT_PASSWORD = '!gringo2026!'; // Change this to whatever password you want
+        const ADULT_PASSWORD = 'gringo2026'; // Change this to whatever password you want
 
         // Adult content consent handling
         function checkAdultConsent() {
@@ -467,6 +467,16 @@
                         </div>
                         
                         <div class="bg-gray-800 rounded-2xl p-8 mb-6 shadow-xl">
+                            <!-- Image (if available) -->
+                            <div class="mb-6" id="imageContainer">
+                                <img id="phraseImage" 
+                                     src="images/${currentCategory}-${currentBlock}-${currentPhraseIndex + 1}.jpg" 
+                                     alt="${phrase.english}"
+                                     class="w-full rounded-xl mb-6 shadow-lg"
+                                     style="max-height: 400px; object-fit: cover;"
+                                     onerror="this.style.display='none'; document.getElementById('imageContainer').style.display='none';">
+                            </div>
+                            
                             <div class="text-center mb-6">
                                 <p class="text-gray-400 text-sm mb-2">English</p>
                                 <p class="text-xl mb-6">${phrase.english}</p>
@@ -560,7 +570,7 @@
             // Calculate the audio filename based on current position
             const phraseIndex = currentPhraseIndex + 1; // Convert to 1-based
             const filename = `${currentCategory}-${currentBlock}-${phraseIndex}.mp3`;
-            const audioPath = `audio/${filename}`;
+            const audioPath = `media/audio/${filename}`;
             
             // Create and play audio element
             const audio = new Audio(audioPath);
