@@ -466,23 +466,23 @@
                             </p>
                         </div>
                         
-                        <div class="bg-gray-800 rounded-2xl p-8 mb-6 shadow-xl">
+                        <div class="bg-gray-800 rounded-2xl p-6 mb-6 shadow-xl">
                             <!-- Image (if available) -->
-                            <div class="mb-6" id="imageContainer">
+                            <div class="mb-4" id="imageContainer">
                                 <img id="phraseImage" 
                                      src="images/${currentCategory}-${currentBlock}-${currentPhraseIndex + 1}.jpg" 
                                      alt="${phrase.english}"
-                                     class="w-full rounded-xl mb-6 shadow-lg"
-                                     style="max-height: 400px; object-fit: cover;"
+                                     class="w-full rounded-xl mb-4 shadow-lg"
+                                     style="max-height: 200px; object-fit: cover;"
                                      onerror="this.style.display='none'; document.getElementById('imageContainer').style.display='none';">
                             </div>
                             
-                            <div class="text-center mb-6">
-                                <p class="text-gray-400 text-sm mb-2">English</p>
-                                <p class="text-xl mb-6">${phrase.english}</p>
+                            <div class="text-center mb-4">
+                                <p class="text-gray-400 text-sm mb-1">English</p>
+                                <p class="text-lg mb-4">${phrase.english}</p>
                                 
-                                <p class="text-gray-400 text-sm mb-2">Spanish</p>
-                                <p class="text-3xl font-bold text-yellow-400 mb-6">${phrase.spanish}</p>
+                                <p class="text-gray-400 text-sm mb-1">Spanish</p>
+                                <p class="text-2xl font-bold text-yellow-400 mb-4">${phrase.spanish}</p>
                                 
                                 <button onclick="playAudio()" 
                                         class="bg-yellow-500 text-gray-900 px-6 py-3 rounded-full font-semibold flex items-center gap-2 mx-auto hover:bg-yellow-400 transition">
@@ -491,12 +491,12 @@
                                 </button>
                             </div>
                             
-                            <div class="border-t border-gray-700 pt-6">
-                                <p class="text-gray-400 text-sm mb-2">Pronunciation</p>
-                                <p class="text-lg text-gray-300 italic">${phrase.pronunciation}</p>
+                            <div class="border-t border-gray-700 pt-4">
+                                <p class="text-gray-400 text-sm mb-1">Pronunciation</p>
+                                <p class="text-base text-gray-300 italic">${phrase.pronunciation}</p>
                                 ${phrase.notes ? `
-                                    <div class="mt-4">
-                                        <p class="text-gray-400 text-sm mb-2">Note</p>
+                                    <div class="mt-3">
+                                        <p class="text-gray-400 text-sm mb-1">Note</p>
                                         <p class="text-sm text-yellow-300">${phrase.notes}</p>
                                     </div>
                                 ` : ''}
