@@ -570,13 +570,13 @@
             // Calculate the audio filename based on current position
             const phraseIndex = currentPhraseIndex + 1; // Convert to 1-based
             const filename = `${currentCategory}-${currentBlock}-${phraseIndex}.mp3`;
-            const audioPath = `media/audio/${filename}`;
+            const audioPath = `audio/${filename}`;
             
             // Create and play audio element
             const audio = new Audio(audioPath);
             audio.play().catch(error => {
                 console.error('Error playing audio:', error);
-                alert('Could not play audio file. Make sure the audio files are uploaded to GitHub.');
+                alert('Audio file not found: ' + filename);
             });
         }
 
