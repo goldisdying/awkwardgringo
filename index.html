@@ -467,22 +467,20 @@
                         </div>
                         
                         <!-- Card with side arrows -->
-                        <div class="relative">
-                            <!-- Left Arrow (hidden on mobile, shown on larger screens) -->
+                        <div class="bg-gray-800 rounded-2xl p-6 mb-6 shadow-xl relative">
+                            <!-- Left Arrow Inside Card -->
                             ${currentPhraseIndex > 0 ? `
                                 <button onclick="previousPhrase()" 
-                                        class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 bg-gray-700 hover:bg-gray-600 text-white w-10 h-10 rounded-full items-center justify-center shadow-lg transition z-10">
-                                    <span class="text-2xl">‹</span>
+                                        class="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-gray-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition z-20">
+                                    <span class="text-3xl font-bold">‹</span>
                                 </button>
                             ` : ''}
                             
-                            <!-- Right Arrow (hidden on mobile, shown on larger screens) -->
+                            <!-- Right Arrow Inside Card -->
                             <button onclick="nextPhrase()" 
-                                    class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 bg-yellow-500 hover:bg-yellow-400 text-gray-900 w-10 h-10 rounded-full items-center justify-center shadow-lg transition z-10">
-                                <span class="text-2xl">›</span>
+                                    class="absolute right-2 top-1/2 -translate-y-1/2 bg-yellow-500 hover:bg-yellow-400 text-gray-900 w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition z-20">
+                                <span class="text-3xl font-bold">›</span>
                             </button>
-                        
-                        <div class="bg-gray-800 rounded-2xl p-6 mb-6 shadow-xl">
                             <!-- Image (if available) -->
                             <div class="mb-4" id="imageContainer">
                                 <img id="phraseImage" 
@@ -519,7 +517,6 @@
                             </div>
                             </div>
                         </div>
-                        <!-- End relative wrapper -->
                         
                         <div class="flex justify-between gap-4 mb-4">
                             <button onclick="previousPhrase()" 
