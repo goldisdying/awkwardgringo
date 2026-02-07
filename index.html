@@ -292,6 +292,10 @@
         // Render home screen
         function renderHome() {
             const app = document.getElementById('app');
+            
+            // Push state to history
+            history.pushState({ page: 'home' }, '', '#home');
+            
             app.innerHTML = `
                 <!-- Header -->
                 <div class="bg-gradient-to-r from-yellow-500 to-orange-500 p-8 text-center">
@@ -371,6 +375,10 @@
         // Direct category selection (bypasses consent check)
         function selectCategoryDirect(categoryKey) {
             currentCategory = categoryKey;
+            
+            // Push state to history
+            history.pushState({ page: 'category', category: categoryKey }, '', `#${categoryKey}`);
+            
             const phrases = allPhrases.filter(p => p.category === categoryKey);
             
             // Get unique blocks
@@ -424,6 +432,14 @@
             currentCategory = categoryKey;
             currentBlock = blockNum;
             currentPhraseIndex = 0;
+            
+            // Push state to history
+            history.pushState({ 
+                page: 'learning', 
+                category: categoryKey, 
+                block: blockNum,
+                phraseIndex: 0
+            }, '', `#${categoryKey}-${blockNum}`);
             
             // Get phrases for this category and block
             categoryPhrases = allPhrases.filter(p => 
@@ -608,6 +624,30 @@
                     } else if (event.key === 'ArrowRight') {
                         nextPhrase();
                     }
+                }
+            });
+            
+            // Handle browser back/forward buttons
+            window.addEventListener('popstate', function(event) {
+                if (event.state) {
+                    if (event.state.page === 'home') {
+                        renderHome();
+                    } else if (event.state.page === 'category') {
+                        selectCategoryDirect(event.state.category);
+                    } else if (event.state.page === 'learning') {
+                        currentCategory = event.state.category;
+                        currentBlock = event.state.block;
+                        currentPhraseIndex = event.state.phraseIndex || 0;
+                        
+                        categoryPhrases = allPhrases.filter(p => 
+                            p.category === currentCategory && parseInt(p.block) === currentBlock
+                        );
+                        
+                        renderLearning();
+                    }
+                } else {
+                    // No state, go to home
+                    renderHome();
                 }
             });
         };
