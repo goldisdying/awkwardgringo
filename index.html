@@ -466,6 +466,22 @@
                             </p>
                         </div>
                         
+                        <!-- Card with side arrows -->
+                        <div class="relative">
+                            <!-- Left Arrow (hidden on mobile, shown on larger screens) -->
+                            ${currentPhraseIndex > 0 ? `
+                                <button onclick="previousPhrase()" 
+                                        class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 bg-gray-700 hover:bg-gray-600 text-white w-10 h-10 rounded-full items-center justify-center shadow-lg transition z-10">
+                                    <span class="text-2xl">‹</span>
+                                </button>
+                            ` : ''}
+                            
+                            <!-- Right Arrow (hidden on mobile, shown on larger screens) -->
+                            <button onclick="nextPhrase()" 
+                                    class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 bg-yellow-500 hover:bg-yellow-400 text-gray-900 w-10 h-10 rounded-full items-center justify-center shadow-lg transition z-10">
+                                <span class="text-2xl">›</span>
+                            </button>
+                        
                         <div class="bg-gray-800 rounded-2xl p-6 mb-6 shadow-xl">
                             <!-- Image (if available) -->
                             <div class="mb-4" id="imageContainer">
@@ -501,7 +517,9 @@
                                     </div>
                                 ` : ''}
                             </div>
+                            </div>
                         </div>
+                        <!-- End relative wrapper -->
                         
                         <div class="flex justify-between gap-4 mb-4">
                             <button onclick="previousPhrase()" 
@@ -583,6 +601,18 @@
         // Initialize app
         window.onload = function() {
             loadPhrases();
+            
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(event) {
+                // Only trigger on learning screen (when categoryPhrases has data)
+                if (categoryPhrases.length > 0) {
+                    if (event.key === 'ArrowLeft') {
+                        previousPhrase();
+                    } else if (event.key === 'ArrowRight') {
+                        nextPhrase();
+                    }
+                }
+            });
         };
     </script>
 </body>
