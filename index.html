@@ -94,6 +94,15 @@
         let currentBlock = 1;
         let currentPhraseIndex = 0;
         let categoryPhrases = [];
+        
+        // Verb flashcard state
+        let allVerbs = [];
+        let currentVerb = null;
+        let currentTense = null;
+        let currentPronounIndex = 0;
+        let pronouns = ['yo', 'tu', 'el_ella', 'nosotros', 'vosotros', 'ellos_ellas'];
+        let pronounLabels = ['Yo', 'Tú', 'Él/Ella/Usted', 'Nosotros', 'Vosotros', 'Ellos/Ellas/Ustedes'];
+        let cardRevealed = false;
 
         // Category configurations
         const categories = {
@@ -292,10 +301,6 @@
         // Render home screen
         function renderHome() {
             const app = document.getElementById('app');
-            
-            // Push state to history
-            history.pushState({ page: 'home' }, '', '#home');
-            
             app.innerHTML = `
                 <!-- Header -->
                 <div class="bg-gradient-to-r from-yellow-500 to-orange-500 p-8 text-center">
@@ -338,6 +343,25 @@
                         }).join('')}
                     </div>
 
+                    <!-- Verb Flashcards Button -->
+                    <div class="mt-8">
+                        <button onclick="showFlashcards()" 
+                                class="w-full bg-gradient-to-r from-green-500 to-teal-500 rounded-xl p-6 shadow-lg category-card">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-4">
+                                    <div class="bg-white/20 p-3 rounded-lg">
+                                        <span class="text-3xl">📚</span>
+                                    </div>
+                                    <div class="text-left">
+                                        <div class="font-bold text-xl text-white">Verb Flashcards</div>
+                                        <div class="text-sm text-white/80">Master 30 common verbs</div>
+                                    </div>
+                                </div>
+                                <span class="text-2xl text-white">›</span>
+                            </div>
+                        </button>
+                    </div>
+
                     <!-- Footer CTA -->
                     <div class="mt-12 bg-gray-800 rounded-xl p-6 text-center">
                         <p class="text-gray-400 mb-3">Ready to level up your game?</p>
@@ -375,10 +399,6 @@
         // Direct category selection (bypasses consent check)
         function selectCategoryDirect(categoryKey) {
             currentCategory = categoryKey;
-            
-            // Push state to history
-            history.pushState({ page: 'category', category: categoryKey }, '', `#${categoryKey}`);
-            
             const phrases = allPhrases.filter(p => p.category === categoryKey);
             
             // Get unique blocks
@@ -433,14 +453,6 @@
             currentBlock = blockNum;
             currentPhraseIndex = 0;
             
-            // Push state to history
-            history.pushState({ 
-                page: 'learning', 
-                category: categoryKey, 
-                block: blockNum,
-                phraseIndex: 0
-            }, '', `#${categoryKey}-${blockNum}`);
-            
             // Get phrases for this category and block
             categoryPhrases = allPhrases.filter(p => 
                 p.category === categoryKey && parseInt(p.block) === blockNum
@@ -482,37 +494,23 @@
                             </p>
                         </div>
                         
-                        <!-- Card with side arrows -->
-                        <div class="bg-gray-800 rounded-2xl p-6 mb-6 shadow-xl relative">
-                            <!-- Left Arrow Inside Card -->
-                            ${currentPhraseIndex > 0 ? `
-                                <button onclick="previousPhrase()" 
-                                        class="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-gray-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition z-20">
-                                    <span class="text-3xl font-bold">‹</span>
-                                </button>
-                            ` : ''}
-                            
-                            <!-- Right Arrow Inside Card -->
-                            <button onclick="nextPhrase()" 
-                                    class="absolute right-2 top-1/2 -translate-y-1/2 bg-yellow-500 hover:bg-yellow-400 text-gray-900 w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition z-20">
-                                <span class="text-3xl font-bold">›</span>
-                            </button>
+                        <div class="bg-gray-800 rounded-2xl p-8 mb-6 shadow-xl">
                             <!-- Image (if available) -->
-                            <div class="mb-4" id="imageContainer">
+                            <div class="mb-6" id="imageContainer">
                                 <img id="phraseImage" 
                                      src="images/${currentCategory}-${currentBlock}-${currentPhraseIndex + 1}.jpg" 
                                      alt="${phrase.english}"
-                                     class="w-full rounded-xl mb-4 shadow-lg"
-                                     style="max-height: 200px; object-fit: cover;"
+                                     class="w-full rounded-xl mb-6 shadow-lg"
+                                     style="max-height: 400px; object-fit: cover;"
                                      onerror="this.style.display='none'; document.getElementById('imageContainer').style.display='none';">
                             </div>
                             
-                            <div class="text-center mb-4">
-                                <p class="text-gray-400 text-sm mb-1">English</p>
-                                <p class="text-lg mb-4">${phrase.english}</p>
+                            <div class="text-center mb-6">
+                                <p class="text-gray-400 text-sm mb-2">English</p>
+                                <p class="text-xl mb-6">${phrase.english}</p>
                                 
-                                <p class="text-gray-400 text-sm mb-1">Spanish</p>
-                                <p class="text-2xl font-bold text-yellow-400 mb-4">${phrase.spanish}</p>
+                                <p class="text-gray-400 text-sm mb-2">Spanish</p>
+                                <p class="text-3xl font-bold text-yellow-400 mb-6">${phrase.spanish}</p>
                                 
                                 <button onclick="playAudio()" 
                                         class="bg-yellow-500 text-gray-900 px-6 py-3 rounded-full font-semibold flex items-center gap-2 mx-auto hover:bg-yellow-400 transition">
@@ -521,16 +519,15 @@
                                 </button>
                             </div>
                             
-                            <div class="border-t border-gray-700 pt-4">
-                                <p class="text-gray-400 text-sm mb-1">Pronunciation</p>
-                                <p class="text-base text-gray-300 italic">${phrase.pronunciation}</p>
+                            <div class="border-t border-gray-700 pt-6">
+                                <p class="text-gray-400 text-sm mb-2">Pronunciation</p>
+                                <p class="text-lg text-gray-300 italic">${phrase.pronunciation}</p>
                                 ${phrase.notes ? `
-                                    <div class="mt-3">
-                                        <p class="text-gray-400 text-sm mb-1">Note</p>
+                                    <div class="mt-4">
+                                        <p class="text-gray-400 text-sm mb-2">Note</p>
                                         <p class="text-sm text-yellow-300">${phrase.notes}</p>
                                     </div>
                                 ` : ''}
-                            </div>
                             </div>
                         </div>
                         
@@ -607,49 +604,274 @@
             const audio = new Audio(audioPath);
             audio.play().catch(error => {
                 console.error('Error playing audio:', error);
-                alert('Audio file not found: ' + filename);
+                alert('Could not play audio file. Make sure the audio files are uploaded to GitHub.');
             });
+        }
+
+        // ==========================================
+        // VERB FLASHCARD FUNCTIONS
+        // ==========================================
+        
+        // Load verbs CSV
+        async function loadVerbs() {
+            try {
+                const response = await fetch('verbs-conjugations.csv');
+                const csvText = await response.text();
+                
+                Papa.parse(csvText, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        allVerbs = results.data;
+                        console.log(`Loaded ${allVerbs.length} verb conjugations`);
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading verbs:', error);
+            }
+        }
+        
+        // Show flashcard selection screen
+        function showFlashcards() {
+            // Get unique verbs
+            const uniqueVerbs = [...new Set(allVerbs.map(v => v.verb))];
+            const tenses = ['present', 'preterite', 'imperfect', 'future', 'conditional', 'subjunctive'];
+            const tenseLabels = {
+                'present': 'Present',
+                'preterite': 'Preterite (Past)',
+                'imperfect': 'Imperfect (Past)',
+                'future': 'Future',
+                'conditional': 'Conditional',
+                'subjunctive': 'Subjunctive'
+            };
+            
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-6">
+                    <button onclick="renderHome()" class="text-gray-400 mb-6 flex items-center gap-2">
+                        <span>←</span> Back
+                    </button>
+                    
+                    <div class="max-w-md mx-auto">
+                        <div class="text-center mb-8">
+                            <div class="text-6xl mb-4">📚</div>
+                            <h1 class="text-4xl font-black mb-2" style="letter-spacing: -0.01em;">Verb Flashcards</h1>
+                            <p class="text-gray-400">Master conjugations for 30 essential verbs</p>
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-2xl p-6 mb-6 shadow-xl">
+                            <h3 class="text-xl font-bold mb-4">Select a Verb</h3>
+                            <select id="verbSelect" class="w-full bg-gray-700 text-white rounded-lg p-3 mb-6">
+                                <option value="">Choose a verb...</option>
+                                ${uniqueVerbs.map(verb => {
+                                    const verbData = allVerbs.find(v => v.verb === verb);
+                                    return `<option value="${verb}">${verb} (${verbData.english})</option>`;
+                                }).join('')}
+                            </select>
+                            
+                            <h3 class="text-xl font-bold mb-4">Select a Tense</h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                ${tenses.map(tense => `
+                                    <button onclick="selectTenseForFlashcards('${tense}')" 
+                                            id="tense-${tense}"
+                                            class="tense-button bg-gray-700 hover:bg-green-600 p-4 rounded-lg font-semibold transition">
+                                        ${tenseLabels[tense]}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <button onclick="startFlashcards()" 
+                                id="startButton"
+                                class="w-full bg-green-500 text-white px-6 py-4 rounded-xl font-bold text-lg opacity-50 cursor-not-allowed"
+                                disabled>
+                            Start Practicing
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners
+            document.getElementById('verbSelect').addEventListener('change', checkFlashcardReadiness);
+        }
+        
+        // Select tense and highlight
+        function selectTenseForFlashcards(tense) {
+            currentTense = tense;
+            
+            // Remove highlight from all buttons
+            document.querySelectorAll('.tense-button').forEach(btn => {
+                btn.classList.remove('bg-green-600');
+                btn.classList.add('bg-gray-700');
+            });
+            
+            // Highlight selected
+            document.getElementById(`tense-${tense}`).classList.remove('bg-gray-700');
+            document.getElementById(`tense-${tense}`).classList.add('bg-green-600');
+            
+            checkFlashcardReadiness();
+        }
+        
+        // Check if ready to start
+        function checkFlashcardReadiness() {
+            const verbSelect = document.getElementById('verbSelect');
+            const startButton = document.getElementById('startButton');
+            
+            currentVerb = verbSelect.value;
+            
+            if (currentVerb && currentTense) {
+                startButton.disabled = false;
+                startButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                startButton.classList.add('hover:bg-green-400');
+            } else {
+                startButton.disabled = true;
+                startButton.classList.add('opacity-50', 'cursor-not-allowed');
+                startButton.classList.remove('hover:bg-green-400');
+            }
+        }
+        
+        // Start flashcard practice
+        function startFlashcards() {
+            if (!currentVerb || !currentTense) return;
+            
+            // Shuffle pronouns for practice
+            currentPronounIndex = 0;
+            cardRevealed = false;
+            
+            // Shuffle the pronouns array for random practice
+            pronouns = ['yo', 'tu', 'el_ella', 'nosotros', 'vosotros', 'ellos_ellas']
+                .sort(() => Math.random() - 0.5);
+            
+            renderFlashcard();
+        }
+        
+        // Render flashcard
+        function renderFlashcard() {
+            if (currentPronounIndex >= pronouns.length) {
+                // Completed all pronouns
+                renderFlashcardComplete();
+                return;
+            }
+            
+            const pronoun = pronouns[currentPronounIndex];
+            const pronounLabel = pronounLabels[['yo', 'tu', 'el_ella', 'nosotros', 'vosotros', 'ellos_ellas'].indexOf(pronoun)];
+            
+            // Get verb data
+            const verbData = allVerbs.find(v => v.verb === currentVerb && v.tense === currentTense);
+            const conjugation = verbData[pronoun];
+            
+            const tenseLabels = {
+                'present': 'Present',
+                'preterite': 'Preterite',
+                'imperfect': 'Imperfect',
+                'future': 'Future',
+                'conditional': 'Conditional',
+                'subjunctive': 'Subjunctive'
+            };
+            
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-6">
+                    <button onclick="showFlashcards()" class="text-gray-400 mb-6 flex items-center gap-2">
+                        <span>←</span> Back to Selection
+                    </button>
+                    
+                    <div class="max-w-md mx-auto">
+                        <div class="text-center mb-4">
+                            <h2 class="text-2xl font-bold text-gray-400">${verbData.verb} (${verbData.english})</h2>
+                            <p class="text-lg text-green-400">${tenseLabels[currentTense]}</p>
+                        </div>
+                        
+                        <div class="mb-4 text-center">
+                            <p class="text-gray-400 text-sm">${currentPronounIndex + 1} of ${pronouns.length}</p>
+                        </div>
+                        
+                        <!-- Flashcard -->
+                        <div class="bg-gradient-to-br from-green-600 to-teal-600 rounded-2xl p-12 mb-6 shadow-2xl min-h-[400px] flex flex-col items-center justify-center">
+                            <div class="text-center">
+                                <p class="text-white/80 text-lg mb-4">Pronoun:</p>
+                                <p class="text-5xl font-black text-white mb-8">${pronounLabel}</p>
+                                
+                                ${!cardRevealed ? `
+                                    <button onclick="revealCard()" 
+                                            class="bg-white text-green-600 px-8 py-4 rounded-full font-bold text-xl hover:bg-gray-100 transition shadow-lg">
+                                        Reveal Answer
+                                    </button>
+                                ` : `
+                                    <div class="mb-6">
+                                        <p class="text-white/80 text-lg mb-2">Conjugation:</p>
+                                        <p class="text-6xl font-black text-yellow-300">${conjugation}</p>
+                                    </div>
+                                `}
+                            </div>
+                        </div>
+                        
+                        ${cardRevealed ? `
+                            <div class="flex gap-4">
+                                <button onclick="nextCard()" 
+                                        class="flex-1 bg-green-500 px-6 py-4 rounded-xl font-bold text-lg hover:bg-green-400 transition">
+                                    ${currentPronounIndex === pronouns.length - 1 ? 'Finish' : 'Next →'}
+                                </button>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+            
+            cardRevealed = false;
+        }
+        
+        // Reveal card
+        function revealCard() {
+            cardRevealed = true;
+            renderFlashcard();
+        }
+        
+        // Next card
+        function nextCard() {
+            currentPronounIndex++;
+            cardRevealed = false;
+            renderFlashcard();
+        }
+        
+        // Flashcard complete screen
+        function renderFlashcardComplete() {
+            const verbData = allVerbs.find(v => v.verb === currentVerb);
+            const app = document.getElementById('app');
+            
+            app.innerHTML = `
+                <div class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-6 flex items-center justify-center">
+                    <div class="max-w-md mx-auto text-center">
+                        <div class="text-6xl mb-6">🎉</div>
+                        <h2 class="text-4xl font-black mb-4">Great Job!</h2>
+                        <p class="text-xl text-gray-300 mb-8">
+                            You practiced all conjugations for<br>
+                            <span class="text-green-400 font-bold">${currentVerb}</span> (${verbData.english})
+                        </p>
+                        
+                        <div class="space-y-3">
+                            <button onclick="startFlashcards()" 
+                                    class="w-full bg-green-500 px-6 py-4 rounded-xl font-bold text-lg hover:bg-green-400 transition">
+                                Practice Again
+                            </button>
+                            <button onclick="showFlashcards()" 
+                                    class="w-full bg-gray-700 px-6 py-4 rounded-xl font-bold text-lg hover:bg-gray-600 transition">
+                                Choose Different Verb
+                            </button>
+                            <button onclick="renderHome()" 
+                                    class="w-full bg-gray-800 px-6 py-4 rounded-xl font-bold text-lg hover:bg-gray-700 transition">
+                                Back to Home
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
         // Initialize app
         window.onload = function() {
             loadPhrases();
-            
-            // Add keyboard navigation
-            document.addEventListener('keydown', function(event) {
-                // Only trigger on learning screen (when categoryPhrases has data)
-                if (categoryPhrases.length > 0) {
-                    if (event.key === 'ArrowLeft') {
-                        previousPhrase();
-                    } else if (event.key === 'ArrowRight') {
-                        nextPhrase();
-                    }
-                }
-            });
-            
-            // Handle browser back/forward buttons
-            window.addEventListener('popstate', function(event) {
-                if (event.state) {
-                    if (event.state.page === 'home') {
-                        renderHome();
-                    } else if (event.state.page === 'category') {
-                        selectCategoryDirect(event.state.category);
-                    } else if (event.state.page === 'learning') {
-                        currentCategory = event.state.category;
-                        currentBlock = event.state.block;
-                        currentPhraseIndex = event.state.phraseIndex || 0;
-                        
-                        categoryPhrases = allPhrases.filter(p => 
-                            p.category === currentCategory && parseInt(p.block) === currentBlock
-                        );
-                        
-                        renderLearning();
-                    }
-                } else {
-                    // No state, go to home
-                    renderHome();
-                }
-            });
+            loadVerbs();
         };
     </script>
 </body>

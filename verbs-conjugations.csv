@@ -1,0 +1,181 @@
+verb,english,tense,yo,tu,el_ella,nosotros,vosotros,ellos_ellas
+ser,to be,present,soy,eres,es,somos,sois,son
+ser,to be,preterite,fui,fuiste,fue,fuimos,fuisteis,fueron
+ser,to be,imperfect,era,eras,era,éramos,erais,eran
+ser,to be,future,seré,serás,será,seremos,seréis,serán
+ser,to be,conditional,sería,serías,sería,seríamos,seríais,serían
+ser,to be,subjunctive,sea,seas,sea,seamos,seáis,sean
+estar,to be,present,estoy,estás,está,estamos,estáis,están
+estar,to be,preterite,estuve,estuviste,estuvo,estuvimos,estuvisteis,estuvieron
+estar,to be,imperfect,estaba,estabas,estaba,estábamos,estabais,estaban
+estar,to be,future,estaré,estarás,estará,estaremos,estaréis,estarán
+estar,to be,conditional,estaría,estarías,estaría,estaríamos,estaríais,estarían
+estar,to be,subjunctive,esté,estés,esté,estemos,estéis,estén
+tener,to have,present,tengo,tienes,tiene,tenemos,tenéis,tienen
+tener,to have,preterite,tuve,tuviste,tuvo,tuvimos,tuvisteis,tuvieron
+tener,to have,imperfect,tenía,tenías,tenía,teníamos,teníais,tenían
+tener,to have,future,tendré,tendrás,tendrá,tendremos,tendréis,tendrán
+tener,to have,conditional,tendría,tendrías,tendría,tendríamos,tendríais,tendrían
+tener,to have,subjunctive,tenga,tengas,tenga,tengamos,tengáis,tengan
+hacer,to do/make,present,hago,haces,hace,hacemos,hacéis,hacen
+hacer,to do/make,preterite,hice,hiciste,hizo,hicimos,hicisteis,hicieron
+hacer,to do/make,imperfect,hacía,hacías,hacía,hacíamos,hacíais,hacían
+hacer,to do/make,future,haré,harás,hará,haremos,haréis,harán
+hacer,to do/make,conditional,haría,harías,haría,haríamos,haríais,harían
+hacer,to do/make,subjunctive,haga,hagas,haga,hagamos,hagáis,hagan
+ir,to go,present,voy,vas,va,vamos,vais,van
+ir,to go,preterite,fui,fuiste,fue,fuimos,fuisteis,fueron
+ir,to go,imperfect,iba,ibas,iba,íbamos,ibais,iban
+ir,to go,future,iré,irás,irá,iremos,iréis,irán
+ir,to go,conditional,iría,irías,iría,iríamos,iríais,irían
+ir,to go,subjunctive,vaya,vayas,vaya,vayamos,vayáis,vayan
+poder,can/to be able,present,puedo,puedes,puede,podemos,podéis,pueden
+poder,can/to be able,preterite,pude,pudiste,pudo,pudimos,pudisteis,pudieron
+poder,can/to be able,imperfect,podía,podías,podía,podíamos,podíais,podían
+poder,can/to be able,future,podré,podrás,podrá,podremos,podréis,podrán
+poder,can/to be able,conditional,podría,podrías,podría,podríamos,podríais,podrían
+poder,can/to be able,subjunctive,pueda,puedas,pueda,podamos,podáis,puedan
+decir,to say/tell,present,digo,dices,dice,decimos,decís,dicen
+decir,to say/tell,preterite,dije,dijiste,dijo,dijimos,dijisteis,dijeron
+decir,to say/tell,imperfect,decía,decías,decía,decíamos,decíais,decían
+decir,to say/tell,future,diré,dirás,dirá,diremos,diréis,dirán
+decir,to say/tell,conditional,diría,dirías,diría,diríamos,diríais,dirían
+decir,to say/tell,subjunctive,diga,digas,diga,digamos,digáis,digan
+dar,to give,present,doy,das,da,damos,dais,dan
+dar,to give,preterite,di,diste,dio,dimos,disteis,dieron
+dar,to give,imperfect,daba,dabas,daba,dábamos,dabais,daban
+dar,to give,future,daré,darás,dará,daremos,daréis,darán
+dar,to give,conditional,daría,darías,daría,daríamos,daríais,darían
+dar,to give,subjunctive,dé,des,dé,demos,deis,den
+ver,to see,present,veo,ves,ve,vemos,veis,ven
+ver,to see,preterite,vi,viste,vio,vimos,visteis,vieron
+ver,to see,imperfect,veía,veías,veía,veíamos,veíais,veían
+ver,to see,future,veré,verás,verá,veremos,veréis,verán
+ver,to see,conditional,vería,verías,vería,veríamos,veríais,verían
+ver,to see,subjunctive,vea,veas,vea,veamos,veáis,vean
+saber,to know,present,sé,sabes,sabe,sabemos,sabéis,saben
+saber,to know,preterite,supe,supiste,supo,supimos,supisteis,supieron
+saber,to know,imperfect,sabía,sabías,sabía,sabíamos,sabíais,sabían
+saber,to know,future,sabré,sabrás,sabrá,sabremos,sabréis,sabrán
+saber,to know,conditional,sabría,sabrías,sabría,sabríamos,sabríais,sabrían
+saber,to know,subjunctive,sepa,sepas,sepa,sepamos,sepáis,sepan
+querer,to want/love,present,quiero,quieres,quiere,queremos,queréis,quieren
+querer,to want/love,preterite,quise,quisiste,quiso,quisimos,quisisteis,quisieron
+querer,to want/love,imperfect,quería,querías,quería,queríamos,queríais,querían
+querer,to want/love,future,querré,querrás,querrá,querremos,querréis,querrán
+querer,to want/love,conditional,querría,querrías,querría,querríamos,querríais,querrían
+querer,to want/love,subjunctive,quiera,quieras,quiera,queramos,queráis,quieran
+llegar,to arrive,present,llego,llegas,llega,llegamos,llegáis,llegan
+llegar,to arrive,preterite,llegué,llegaste,llegó,llegamos,llegasteis,llegaron
+llegar,to arrive,imperfect,llegaba,llegabas,llegaba,llegábamos,llegabais,llegaban
+llegar,to arrive,future,llegaré,llegarás,llegará,llegaremos,llegaréis,llegarán
+llegar,to arrive,conditional,llegaría,llegarías,llegaría,llegaríamos,llegaríais,llegarían
+llegar,to arrive,subjunctive,llegue,llegues,llegue,lleguemos,lleguéis,lleguen
+poner,to put,present,pongo,pones,pone,ponemos,ponéis,ponen
+poner,to put,preterite,puse,pusiste,puso,pusimos,pusisteis,pusieron
+poner,to put,imperfect,ponía,ponías,ponía,poníamos,poníais,ponían
+poner,to put,future,pondré,pondrás,pondrá,pondremos,pondréis,pondrán
+poner,to put,conditional,pondría,pondrías,pondría,pondríamos,pondríais,pondrían
+poner,to put,subjunctive,ponga,pongas,ponga,pongamos,pongáis,pongan
+parecer,to seem,present,parezco,pareces,parece,parecemos,parecéis,parecen
+parecer,to seem,preterite,parecí,pareciste,pareció,parecimos,parecisteis,parecieron
+parecer,to seem,imperfect,parecía,parecías,parecía,parecíamos,parecíais,parecían
+parecer,to seem,future,pareceré,parecerás,parecerá,pareceremos,pareceréis,parecerán
+parecer,to seem,conditional,parecería,parecerías,parecería,pareceríamos,pareceríais,parecerían
+parecer,to seem,subjunctive,parezca,parezcas,parezca,parezcamos,parezcáis,parezcan
+deber,should/must,present,debo,debes,debe,debemos,debéis,deben
+deber,should/must,preterite,debí,debiste,debió,debimos,debisteis,debieron
+deber,should/must,imperfect,debía,debías,debía,debíamos,debíais,debían
+deber,should/must,future,deberé,deberás,deberá,deberemos,deberéis,deberán
+deber,should/must,conditional,debería,deberías,debería,deberíamos,deberíais,deberían
+deber,should/must,subjunctive,deba,debas,deba,debamos,debáis,deban
+creer,to believe,present,creo,crees,cree,creemos,creéis,creen
+creer,to believe,preterite,creí,creíste,creyó,creímos,creísteis,creyeron
+creer,to believe,imperfect,creía,creías,creía,creíamos,creíais,creían
+creer,to believe,future,creeré,creerás,creerá,creeremos,creeréis,creerán
+creer,to believe,conditional,creería,creerías,creería,creeríamos,creeríais,creerían
+creer,to believe,subjunctive,crea,creas,crea,creamos,creáis,crean
+hablar,to speak,present,hablo,hablas,habla,hablamos,habláis,hablan
+hablar,to speak,preterite,hablé,hablaste,habló,hablamos,hablasteis,hablaron
+hablar,to speak,imperfect,hablaba,hablabas,hablaba,hablábamos,hablabais,hablaban
+hablar,to speak,future,hablaré,hablarás,hablará,hablaremos,hablaréis,hablarán
+hablar,to speak,conditional,hablaría,hablarías,hablaría,hablaríamos,hablaríais,hablarían
+hablar,to speak,subjunctive,hable,hables,hable,hablemos,habléis,hablen
+llevar,to carry/wear,present,llevo,llevas,lleva,llevamos,lleváis,llevan
+llevar,to carry/wear,preterite,llevé,llevaste,llevó,llevamos,llevasteis,llevaron
+llevar,to carry/wear,imperfect,llevaba,llevabas,llevaba,llevábamos,llevabais,llevaban
+llevar,to carry/wear,future,llevaré,llevarás,llevará,llevaremos,llevaréis,llevarán
+llevar,to carry/wear,conditional,llevaría,llevarías,llevaría,llevaríamos,llevaríais,llevarían
+llevar,to carry/wear,subjunctive,lleve,lleves,lleve,llevemos,llevéis,lleven
+dejar,to leave/let,present,dejo,dejas,deja,dejamos,dejáis,dejan
+dejar,to leave/let,preterite,dejé,dejaste,dejó,dejamos,dejasteis,dejaron
+dejar,to leave/let,imperfect,dejaba,dejabas,dejaba,dejábamos,dejabais,dejaban
+dejar,to leave/let,future,dejaré,dejarás,dejará,dejaremos,dejaréis,dejarán
+dejar,to leave/let,conditional,dejaría,dejarías,dejaría,dejaríamos,dejaríais,dejarían
+dejar,to leave/let,subjunctive,deje,dejes,deje,dejemos,dejéis,dejen
+seguir,to follow,present,sigo,sigues,sigue,seguimos,seguís,siguen
+seguir,to follow,preterite,seguí,seguiste,siguió,seguimos,seguisteis,siguieron
+seguir,to follow,imperfect,seguía,seguías,seguía,seguíamos,seguíais,seguían
+seguir,to follow,future,seguiré,seguirás,seguirá,seguiremos,seguiréis,seguirán
+seguir,to follow,conditional,seguiría,seguirías,seguiría,seguiríamos,seguiríais,seguirían
+seguir,to follow,subjunctive,siga,sigas,siga,sigamos,sigáis,sigan
+encontrar,to find,present,encuentro,encuentras,encuentra,encontramos,encontráis,encuentran
+encontrar,to find,preterite,encontré,encontraste,encontró,encontramos,encontrasteis,encontraron
+encontrar,to find,imperfect,encontraba,encontrabas,encontraba,encontrábamos,encontrabais,encontraban
+encontrar,to find,future,encontraré,encontrarás,encontrará,encontraremos,encontraréis,encontrarán
+encontrar,to find,conditional,encontraría,encontrarías,encontraría,encontraríamos,encontraríais,encontrarían
+encontrar,to find,subjunctive,encuentre,encuentres,encuentre,encontremos,encontréis,encuentren
+llamar,to call,present,llamo,llamas,llama,llamamos,llamáis,llaman
+llamar,to call,preterite,llamé,llamaste,llamó,llamamos,llamasteis,llamaron
+llamar,to call,imperfect,llamaba,llamabas,llamaba,llamábamos,llamabais,llamaban
+llamar,to call,future,llamaré,llamarás,llamará,llamaremos,llamaréis,llamarán
+llamar,to call,conditional,llamaría,llamarías,llamaría,llamaríamos,llamaríais,llamarían
+llamar,to call,subjunctive,llame,llames,llame,llamemos,llaméis,llamen
+venir,to come,present,vengo,vienes,viene,venimos,venís,vienen
+venir,to come,preterite,vine,viniste,vino,vinimos,vinisteis,vinieron
+venir,to come,imperfect,venía,venías,venía,veníamos,veníais,venían
+venir,to come,future,vendré,vendrás,vendrá,vendremos,vendréis,vendrán
+venir,to come,conditional,vendría,vendrías,vendría,vendríamos,vendríais,vendrían
+venir,to come,subjunctive,venga,vengas,venga,vengamos,vengáis,vengan
+pensar,to think,present,pienso,piensas,piensa,pensamos,pensáis,piensan
+pensar,to think,preterite,pensé,pensaste,pensó,pensamos,pensasteis,pensaron
+pensar,to think,imperfect,pensaba,pensabas,pensaba,pensábamos,pensabais,pensaban
+pensar,to think,future,pensaré,pensarás,pensará,pensaremos,pensaréis,pensarán
+pensar,to think,conditional,pensaría,pensarías,pensaría,pensaríamos,pensaríais,pensarían
+pensar,to think,subjunctive,piense,pienses,piense,pensemos,penséis,piensen
+salir,to leave/go out,present,salgo,sales,sale,salimos,salís,salen
+salir,to leave/go out,preterite,salí,saliste,salió,salimos,salisteis,salieron
+salir,to leave/go out,imperfect,salía,salías,salía,salíamos,salíais,salían
+salir,to leave/go out,future,saldré,saldrás,saldrá,saldremos,saldréis,saldrán
+salir,to leave/go out,conditional,saldría,saldrías,saldría,saldríamos,saldríais,saldrían
+salir,to leave/go out,subjunctive,salga,salgas,salga,salgamos,salgáis,salgan
+volver,to return,present,vuelvo,vuelves,vuelve,volvemos,volvéis,vuelven
+volver,to return,preterite,volví,volviste,volvió,volvimos,volvisteis,volvieron
+volver,to return,imperfect,volvía,volvías,volvía,volvíamos,volvíais,volvían
+volver,to return,future,volveré,volverás,volverá,volveremos,volveréis,volverán
+volver,to return,conditional,volvería,volverías,volvería,volveríamos,volveríais,volverían
+volver,to return,subjunctive,vuelva,vuelvas,vuelva,volvamos,volváis,vuelvan
+tomar,to take,present,tomo,tomas,toma,tomamos,tomáis,toman
+tomar,to take,preterite,tomé,tomaste,tomó,tomamos,tomasteis,tomaron
+tomar,to take,imperfect,tomaba,tomabas,tomaba,tomábamos,tomabais,tomaban
+tomar,to take,future,tomaré,tomarás,tomará,tomaremos,tomaréis,tomarán
+tomar,to take,conditional,tomaría,tomarías,tomaría,tomaríamos,tomaríais,tomarían
+tomar,to take,subjunctive,tome,tomes,tome,tomemos,toméis,tomen
+conocer,to know,present,conozco,conoces,conoce,conocemos,conocéis,conocen
+conocer,to know,preterite,conocí,conociste,conoció,conocimos,conocisteis,conocieron
+conocer,to know,imperfect,conocía,conocías,conocía,conocíamos,conocíais,conocían
+conocer,to know,future,conoceré,conocerás,conocerá,conoceremos,conoceréis,conocerán
+conocer,to know,conditional,conocería,conocerías,conocería,conoceríamos,conoceríais,conocerían
+conocer,to know,subjunctive,conozca,conozcas,conozca,conozcamos,conozcáis,conozcan
+vivir,to live,present,vivo,vives,vive,vivimos,vivís,viven
+vivir,to live,preterite,viví,viviste,vivió,vivimos,vivisteis,vivieron
+vivir,to live,imperfect,vivía,vivías,vivía,vivíamos,vivíais,vivían
+vivir,to live,future,viviré,vivirás,vivirá,viviremos,viviréis,vivirán
+vivir,to live,conditional,viviría,vivirías,viviría,viviríamos,viviríais,vivirían
+vivir,to live,subjunctive,viva,vivas,viva,vivamos,viváis,vivan
+sentir,to feel,present,siento,sientes,siente,sentimos,sentís,sienten
+sentir,to feel,preterite,sentí,sentiste,sintió,sentimos,sentisteis,sintieron
+sentir,to feel,imperfect,sentía,sentías,sentía,sentíamos,sentíais,sentían
+sentir,to feel,future,sentiré,sentirás,sentirá,sentiremos,sentiréis,sentirán
+sentir,to feel,conditional,sentiría,sentirías,sentiría,sentiríamos,sentiríais,sentirían
+sentir,to feel,subjunctive,sienta,sientas,sienta,sintamos,sintáis,sientan
